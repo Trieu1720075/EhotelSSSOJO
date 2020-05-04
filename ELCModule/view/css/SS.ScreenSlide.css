@@ -1,0 +1,101 @@
+.line {
+  border-bottom: 3px solid rgba(243, 111, 33, 0.5);
+  position: absolute;
+  padding-top: 80px;
+  width: 100%;
+}
+.subject-footer .frame-sm {
+  height: 135px;
+  line-height: 135px;
+  overflow: hidden;
+  margin: 0px 0px 0px 0px;
+}
+.subject-footer .frame-sm ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-size: 50px;
+}
+.subject-footer .frame-sm ul li {
+  list-style: none;
+  opacity: 1;
+  border: 0px;
+  border-radius: 0px;
+  float: left;
+  width: 120px;
+  height: 100%;
+  margin: 0px 30px 15px 15px;
+  padding: 0;
+  background: transparent;
+  color: #ddd;
+  text-align: center;
+  cursor: pointer;
+}
+.subject-footer .frame-sm ul li .thumbnail {
+  display: block;
+  outline: none;
+  height: 60%;
+  padding-top: 15px;
+  line-height: 1.846;
+  background: transparent;
+  opacity: 1;
+  border: 0px solid #ddd;
+  margin-bottom: 15px;
+  border-top-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+.subject-footer .frame-sm ul li .thumbnail .title-item {
+  margin: 0px 0px 0px 0px;
+  position: absolute !important;
+  width: 120px;
+  top: 85px;
+  color: #fff;
+}
+.subject-footer .frame-sm ul li .thumbnail .title-item h6 {
+  color: #fff;
+  font-size: 16px;
+  vertical-align: middle;
+  overflow: hidden;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.subject-footer .frame-sm ul li.active {
+  opacity: 1 !important;
+  background: transparent;
+}
+.subject-footer .frame-sm ul li.active h6 {
+  color: #fff;
+  font-size: 16px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.subject-footer .frame-sm ul li.active .thumbnail {
+  outline: none;
+  z-index: 9999;
+  opacity: 1;
+  background: rgba(243, 111, 33, 0.5);
+}
+.subject-footer .frame-sm ul li.active .thumbnail:focus {
+  outline: none;
+  z-index: 9999;
+  opacity: 1;
+  background: #f36f21;
+  box-shadow: 0px 0px 30px 5px transparent;
+}
+.subject-footer .frame-sm ul li h6 {
+  color: #fff;
+  margin-top: 5px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  font-size: 17px;
+  line-height: 20px;
+  vertical-align: middle;
+  overflow: hidden;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}

@@ -1,0 +1,46 @@
+@import "color.less"; 
+#container-detail-view{
+	height: 350px; overflow: hidden;
+	padding-left: 0px;
+    padding-right: 0px;
+    background: rgba(0,0,0,.7);
+    ul{
+		padding:10px 0px 10px 0px;
+		li {
+			list-style: none;
+			border-bottom:1px solid rgba(255,255,255, 0.5);
+			h5{
+				font-size: 17px;
+			    margin: 6.5px 5px 6.5px 5px;
+				vertical-align: middle;
+				overflow: hidden;
+				display: -webkit-box;
+				text-overflow: ellipsis;
+				-webkit-line-clamp: 1; /* number of lines to show */
+				-webkit-box-orient: vertical;
+			}
+			div{
+				padding: 5px;
+				border-left: 7px solid transparent;
+			}
+		}
+	}
+	.item-sub:focus{
+		outline: none;
+		z-index: 9999;
+		background: fade(@color-root, 70%);
+	}
+}
+#content-right-view{
+	.content-right-view{
+		height: 365px; 
+		overflow: hidden;
+		background:rgba(0,0,0, 0.5);
+	}
+	&:focus {
+		.content-right-view{
+			background:fade(@color-root, 50%);
+		}
+	}
+}
+

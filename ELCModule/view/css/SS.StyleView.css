@@ -1,0 +1,18 @@
+nav[data-ehotel-header="false"] {
+  display: none;
+}
+nav[data-ehotel-header="true"] {
+  display: show;
+}
+#footer-main[data-ehotel-footer="false"] {
+  display: none;
+}
+#footer-main[data-ehotel-footer="true"] {
+  display: block;
+}
+#footer-Sojo[data-ehotel-footer-Sojo="false"] {
+  display: none;
+}
+#footer-Sojo[data-ehotel-footer-Sojo="true"] {
+  display: block;
+}

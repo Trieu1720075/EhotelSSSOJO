@@ -1,0 +1,84 @@
+.container-bill{
+	height:100%;
+	margin:10% 15% 0 15%;
+}
+.detail-bill{
+	background: rgba(0,0,0,.7);
+}
+#scenes-bill .bar-bill-title {
+	height: 40px;
+    margin-left: 0px;
+    margin-right: 0px;
+    border-bottom: 2px solid rgba(131,0,81,0.5);
+}
+#scenes-bill .bar-bill-title h4{
+	color:#fff;
+	font-size:13px;
+	text-transform: uppercase;
+}
+#scenes-bill .bar-bill-heading {
+	margin-bottom: 5px;
+}
+#scenes-bill .bar-bill-heading .bar-bill-heading-left{
+	background: rgb(131, 0, 81);
+	height: 120px;
+	vertical-align: middle;
+	padding: 5px;
+}
+#scenes-bill .bar-bill-heading .bar-bill-heading-left .total-amount{
+	text-align:right;
+}
+#scenes-bill .bar-bill-heading .bar-bill-heading-left .total-quanlity{
+	text-align:right;
+}
+#scenes-bill .bar-bill-heading .bar-bill-heading-left h4{
+	padding-top:5px;
+	color:#fff;
+	font-size:20px;
+}
+#scenes-bill .bar-bill-heading .bar-bill-heading-left h3{
+	font-size:15px;
+	margin:5px;
+	color:#fff;
+}
+#scenes-bill .bar-bill-heading .bar-bill-heading-left img {
+	height:50px;
+}
+#scenes-bill .bar-bill-heading .bar-bill-heading-right{
+	background:rgba(0,0,0,0.7);
+	height: 120px; 
+	padding: 5px;
+	text-align: right;
+}
+#scenes-bill .bar-bill-heading .bar-bill-heading-right h4{
+	color: #fff;
+}
+#scenes-bill .bar-bill-heading .bar-bill-heading-right h3{
+	text-align: left;
+    margin: 0px;
+    color: #fff;
+}
+#scenes-bill .bar-bill-heading .bar-bill-heading-right p{
+	color:rgba(131,0,81,1);
+	border-bottom: 1px solid rgba(131,0,81,0.5);
+}
+#bill-detail p{
+	color:#fff;
+	font-size: 17px;
+	overflow: hidden;
+    line-height: 20px;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.bill-no {
+	padding-top: 11px;
+}
+.bill-quality, .bill-amount {
+	text-align: right;
+	padding-top: 11px;
+}
+.bill-date, .bill-hour {
+	text-align: left;
+}

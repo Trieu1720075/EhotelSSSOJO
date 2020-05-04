@@ -1,0 +1,64 @@
+#scenes-message .bar-message-title {
+  height: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+#scenes-message .bar-message-title h4 {
+  color: #fff;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+#scenes-message .bar-message-heading {
+  margin-bottom: 5px;
+}
+#scenes-message .bar-message-heading .bar-message-heading-left {
+  background: #fff;
+  height: 55px;
+  vertical-align: middle;
+  padding-top: 17px;
+  padding-left: 10px;
+}
+#scenes-message .bar-message-heading .bar-message-heading-right {
+  background: rgba(0, 0, 0, 0.7);
+  height: 55px;
+  padding: 5px;
+}
+#scenes-message .bar-message-heading .bar-message-heading-right h4 {
+  margin: 0px;
+  color: #fff;
+  font-size: 15px;
+}
+#scenes-message .bar-message-heading .bar-message-heading-right h3 {
+  margin: 0px;
+  color: #fff;
+  font-size: 20px;
+}
+#scenes-message .bar-message-heading img {
+  vertical-align: middle;
+  margin-top: -15px;
+}
+#scenes-message .bar-message-heading h4 {
+  margin: 0px;
+  display: inline;
+  font-size: 20px;
+}
+#scenes-message .message-content {
+  height: 405px;
+  background: rgba(243, 111, 33, 0.7);
+}
+#scenes-message .msg-text {
+  overflow: auto;
+  height: 320px;
+  color: #fff;
+  font-size: 18px;
+  line-height: 25px;
+  text-decoration: none;
+}
+#scenes-message .msg-text p {
+  color: #fff;
+  font-size: 20px;
+}
+#scenes-message #message-content:focus .msg-text {
+  background: rgba(0, 0, 0, 0.7);
+  text-decoration: none;
+}

@@ -1,0 +1,965 @@
+<!--
+	@author DangTM ELCOM 
+	@Copyright by ELCOM
+	@Date 15/10/2016
+	@Project Flamigo
+-->
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>eHotel Flamingo</title>
+
+<!-- TODO : Common API -->
+<!--<script type="text/javascript" src="$MANAGER_WIDGET/Common/Util/Include.js"></script>
+<script type="text/javascript" src="$MANAGER_WIDGET/Common/Util/Language.js"></script>
+<script type="text/javascript" src="$MANAGER_WIDGET/Common/Plugin/Define.js"></script> -->
+
+<script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/API/Widget.js"></script>
+<script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/API/TVKeyValue.js"></script>
+<script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/API/Plugin.js"></script>
+<!-- <script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/Plugin/Define.js"></script> -->
+<!-- <script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/IME_XT9/ime.js"></script>
+<script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/IME_XT9/inputCommon/ime_input.js"></script> -->
+<script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/webapi/1.0/webapis.js"></script>
+
+ <!--<script language="javascript" type="text/javascript" src="$MANAGER_WIDGET/Common/IME/ime2.js"></script> -->
+
+<!-- TODO: Plugins -->
+<!--<object id="pluginObjectWindow" classid="clsid:SAMSUNG-INFOLINK-SEF" style="width:0px; height:0px;"></object>-->
+<object id="pluginPlayer" border="0" classid="clsid:SAMSUNG-INFOLINK-SEF" style="opacity: 0.0; background-color: #000; width: 0px; height: 0px;"></object>
+<object id="pluginReceiveMessage" border="0" classid="clsid:SAMSUNG-INFOLINK-SEF" style="opacity: 0.0; background-color: #000; width: 0px; height: 0px;"></object>
+<object id="pluginObjectTVMW"classid="clsid:SAMSUNG-INFOLINK-TVMW" style="position: absolute; width: 0; height: 0; opacity: 0;"></object>
+<object id="pluginObjectNNavi" classid="clsid:SAMSUNG-INFOLINK-NNAVI" style="position: absolute; width: 0px; height: 0px;"></object>
+<object id="pluginObjectPlayer" classid="clsid:SAMSUNG-INFOLINK-SEF" style="position: absolute; width:0px; height:0px; opacity:0"></object>
+<object id="pluginObjectNetwork" border="0" classid="clsid:SAMSUNG-INFOLINK-NETWORK" style="position: absolute;width: 0px; height: 0px;"></object>
+<object id="pluginAudio" border="0" classid="clsid:SAMSUNG-INFOLINK-SEF" style="opacity: 0.0; background-color: #000; width: 0px; height: 0px;"></object>
+<!-- <object id='pluginSefVOD' border=0 classid='clsid:SAMSUNG-INFOLINK-SEF'></object> -->
+<link type="text/css" rel="stylesheet" href="ELCommon/view/SS.Style.css">
+<link type="text/css" rel="stylesheet" href='ELCommon/view/SS.Font.css'>
+<link type="text/css" rel="stylesheet" href="ELCommon/view/SS.SlideShow.css" >
+<link type="text/css" rel="stylesheet" href="ELCModule/view/SS.Style.1.0.css">
+<link type="text/css" rel="stylesheet" href="ELCModule/view/SS.ScreenSlide.css" />
+<link type="text/css" rel="stylesheet" href="ELCModule/view/SS.SlideBar.css">
+<link type="text/css" rel="stylesheet" href="ELCModule/view/SS.StyleView.css">
+<link type="text/css" rel="stylesheet" href="ELCModule/view/SS.Message.css" >
+<link type="text/css" rel="stylesheet" href="ELCModule/view/SS.DetailView.css" />
+<link type="text/css" rel="stylesheet" href="ELCModule/view/SS.Bill.css" />
+<link type="text/css" rel="stylesheet" href="ELCModule/view/SS.Food.css" />
+<link type="text/css" rel="stylesheet" href="ELCModule/view/SS.Music.css" />
+<link type="text/css" rel="stylesheet" href="ELCModule/view/SS.TV.css" />
+<link type="text/css" rel="stylesheet" href="ELCModule/view/SS.RelateVideo.css" />
+<link type="text/css" rel="stylesheet" href="ELCModule/view/SS.MediaElementPlayer.css" />
+<script type="text/javascript" src="ELCommon/model/SS.Jquery.1.11.1.js"></script>
+<script type="text/javascript" src="ELCommon/model/SS.JUI.min.js"></script>
+<script type="text/javascript" src="ELCommon/model/SS.Common.js?v=20180919"></script>
+<script type="text/javascript" src="ELCommon/model/SS.Application.js"></script> 
+<script type="text/javascript" src="ELCommon/model/SS.API.js"></script>
+<script type="text/javascript" src="ELCommon/model/SS.History.js"></script>
+<script type="text/javascript" src="ELCommon/model/SS.ParseXML.js"></script>
+<script type="text/javascript" src="ELCommon/model/SS.Layout.js"></script>
+<script type="text/javascript" src="ELCommon/model/SS.Language.js"></script>
+<script type="text/javascript" src="ELCommon/model/SS.Modal.js"></script> 
+<script type="text/javascript" src="ELCommon/model/SS.Widget.js"></script> 
+<script type="text/javascript">
+		$(function(){
+			$('html').css({
+				'height':'100%',
+				'margin':'0',
+				'padding':'0'
+			});
+			$('body').css({
+				'height':'100%',
+				'margin':'0',
+				'padding':'0', 
+				'overflow': 'hidden'
+				
+			});	
+			$('body').css({'background':'rgba(0,0,0,0)'});
+		});
+</script>
+       
+</head>
+<body onLoad="eWelcome.init()">
+   <!-- <h2 class="logs" style="text-align: left;">Console logs</h2> -->
+	<div class="navbar-fixed-top number-tv">
+		<span></span> <img src=""/>
+	</div>
+	
+	<!-- event global -->
+	<a tabindex="1" href="javascript:void()" id="elc_global_event" onkeydown=""></a>
+	
+	<!-- welcome -->
+    <div id="scenes-welcome" style="height:100%;display: none">
+      <div class="ehotel-slide-show"></div>
+      <div id="ehotel-welcome" style="height: 100%;"></div>
+	</div>
+	
+	<!-- standby -->
+    <div id="scenes-standby" style="height:100%">
+		<div class="standby-content"></div>
+		<div id="standby-content" style="height: 100%;"></div>
+	  </div>
+    
+    <!-- header -->
+	<!-- <nav data-ehotel-header="false" class="navbar navbar-fixed-top"
+		role="navigation">
+		<div class="col-lg-4">
+			<img style="height: 50px; margin-top: 0px; padding: 7px;"
+				class="logo__nav" src="" alt="">
+		</div>
+		<div class="col-lg-4 text-center">
+			<button type="button" class="btn ehotel-name-room">ROOM</button>
+		</div>
+		<div class="col-lg-4">
+			<div class="media pull-right" style="margin-top: 5px;">
+				<div class="media-left media-middle text-center">
+					<h5 class="media-heading color-white nav-date"
+						style="font-size: 15px"></h5>
+					<h5 class="media-heading color-white nav-time"
+						style="font-size: 15px"></h5>
+				</div>
+				<div class="media-right">
+					<a href="javascript:void()"> <img class="media-object"
+						style="height: 35px" src="ELCommon/view/images/ic_cloud_rain.png">
+					</a>
+				</div>
+			</div>
+		</div>
+	</nav> -->
+
+	<!-- view content -->
+    <div id="scenes-birthday" style="height:100%; width: 100%; display: none;">
+        <a id="birthday-content" href="javascript:void()" style="height: 100%; width: 100%;" onkeydown="eBirthDay.keyDown(this, event)" onclick="eBirthDay.itemClick(this, event)">
+        	<div class="birthday-content" style="height: 100%; width: 100%;"></div>
+        </a>
+    </div>
+	
+	<!-- main -->
+	<div id="scenes-main">
+		<!-- <Scenes Main> -->
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div id="ehotel-item" class="row centering text-center"></div>
+				<!-- <div id="ehotel-item" class="row centering text-center"
+					style="padding: 14% 185px 0px 185px;"></div> -->
+			</div>
+		</div>
+	</div>
+	
+	<!-- music -->
+	<!-- <div id="scenes-music">
+		<div style="margin: 9% 13% 0 13%">
+			<div class="col-lg-5 list-music">
+				<div class="text-center"
+					style="border-bottom: 0.5px solid white; padding: 0px; margin-left: 80px; margin-right: 80px"">
+					<span class="music-title"
+						style="color: white; font-size: 20px; vertical-align: middle;">Danh
+						Sách Nhạc</span>
+				</div>
+				<div id="ehotel-item-music"
+					style="overflow: hidden; height: 300px !important;">
+					<ul style="list-style-type: none; padding-left: 0 !important;"></ul>
+				</div>
+				<div class="bar-footer-music">
+					<div class="col-md-5 bar-footer-left-music">
+						<h4>
+							Press <span class="label label-default">LEFT</span>, <span
+								class="label label-default">RIGHT</span> to SELECT subject
+						</h4>
+					</div>
+					<div class="col-md-7 bar-footer-right-music">
+						<h4>
+							Press <span class="label label-default">UP</span>, <span
+								class="label label-default">DOWN</span>, <span
+								class="label label-default">OK</span> to move UP, DOWN and
+							SELECT song
+						</h4>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-7 music-detail" style="padding-right: 0px;"> -->
+				<!-- <div class="bar-title">
+					<h4></h4>
+				</div> -->
+				
+				<!-- <ul class="rslides" id="slider-music" ></ul>
+				<div id="container-audio">
+				</div> -->
+				<!-- <div class="bar-footer-content-music">
+					<div class="col-md-6" style="padding-right: 5px; padding-left: 0px">
+						<div
+							style="background-color: rgba(131, 0, 81, 0.8); margin-top: 3px;">
+							<h4 style="padding: 0 10px 0 10px">
+								Press <span class="label label-default">PLAY</span>, <span
+									class="label label-default">PAUSE</span>, <span
+									class="label label-default">STOP</span> to PLAY, PAUSE, STOP
+								song selected
+							</h4>
+						</div>
+					</div>
+					<div class="col-md-6" style="padding-left: 0px; padding-right: 0px">
+						<div
+							style="background-color: rgba(131, 0, 81, 0.8); margin-top: 3px;">
+							<h4 style="padding: 0 10px 0 10px">
+								Press <span class="label label-default">REWIND</span>, <span
+									class="label label-default">FORWARD</span> to REWIND and
+								FORWARD song selected
+							</h4>
+						</div>
+					</div>
+				</div> -->
+			<!-- </div>
+		</div>
+		<nav class="navbar navbar-inverse navbar-fixed-bottom frame-footer subject-footer"
+			role="navigation">
+			<div class="line"></div>
+			<div class="container-frame">
+				<div id="scenes-music-subject" class="frame-sm">
+					<ul></ul>
+				</div>
+				<div class="hidden">
+					<button class="btn prev"></button>
+					<button class="btn next"></button>
+				</div>
+			</div>
+		</nav>
+	</div> -->
+	
+	<!-- exchange rate -->
+	<div id="scenes-exchange-rate" style="display: none;">
+		<div id="content-exchange-rate" class="centering"
+			style="margin-top: 135px"></div>
+		<nav class="navbar navbar-inverse navbar-fixed-bottom frame-footer"
+			role="navigation">
+			<div class="container-frame">
+				<div id="slide-exchange-rate" class="frame-small">
+					<ul></ul>
+				</div>
+			</div>
+			<div class="container-frame-text">
+				<div id="slide-exchange-rate-text" class="frame-small-text">
+					<ul></ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+	
+	<!-- weather -->
+	<div id="scenes-weather" style="display: none;">
+		<div id="content-weather" class="centering">
+			<div class="col-md-4" style="padding-right: 4% !important;">
+				<div class="day-weather day-weather-large" style="height: 300px;"></div>
+			</div>
+			<div class="col-md-2">
+				<div class="day-weather day-weather-1"
+					style="height: 220px; margin-top: 40px"></div>
+			</div>
+			<div class="col-md-2">
+				<div class="day-weather day-weather-2"
+					style="height: 220px; margin-top: 40px"></div>
+			</div>
+			<div class="col-md-2">
+				<div class="day-weather day-weather-3"
+					style="height: 220px; margin-top: 40px"></div>
+			</div>
+			<div class="col-md-2">
+				<div class="day-weather day-weather-4"
+					style="height: 220px; margin-top: 40px"></div>
+			</div>
+		</div>
+		<nav class="navbar navbar-inverse navbar-fixed-bottom frame-footer"
+			role="navigation">
+			<div class="container-frame" style="border-bottom: 3px solid rgba(243, 111, 33, 0.5);">
+				<div id="slide-weather" class="frame-small">
+					<ul></ul>
+				</div>
+			</div>
+			<div class="container-frame-text">
+				<div id="slide-weather-text" class="frame-small-text">
+					<ul></ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+	
+	<!-- message -->
+	<div id="scenes-message" style="height:100%;">
+    	<div class="container-fluid" style="height:90%;">
+        	<div class="row-fluid" style="height:90%;">
+            	<div class="detail-screen">
+                	<div class="row bar-message-heading">
+                        <div class="col-md-2" style="padding-right:0px">
+                        	<div class="bar-message-heading-left">
+                            	<img src="ELCommon/view/images/ic_letter.png" />
+                        		<h4> INBOX </h4>
+                            </div>
+                        	
+                        </div>
+                        <div class="col-md-10" style="padding-left:5px">
+                        	<div class="bar-message-heading-right">
+                            	<h4>Mr. Dang Tran</h4>
+                            	<h3>You have got 3 new message in your box</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-5" style="padding-right:0px">
+                        	<div class="list-subject">
+                            	<div class="row bar-message-title">
+                                    <div class="col-md-2"><h4>New(3)</h4></div>
+                                    <div class="col-md-7" style="padding-left: 0px;"><h4>Message</h4></div>
+                                    <div class="col-md-3"><h4 style="text-align: right;">Date(mm/dd)</h4></div>
+                                </div>
+                                <div id="message-subject" style="height: 365px; overflow: hidden;"></div>
+                            </div>
+                        	
+                        </div>
+                        <div class="col-md-7" style="padding-left:5px">
+                        	<div class="message-content">
+                            	<div id="message-detail"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+    </div>
+	
+	
+	
+	<!-- footer -->
+	<!-- <div data-ehotel-footer="false" id="footer-main">
+		 <nav class="navbar-fixed-bottom" role="navigation"
+			style="z-index: 9999; width: 10%">
+			<div>
+				<ul id='slide-promotion-icon' style="margin-left: 15px;"></ul>
+			</div>
+		</nav>
+		<nav 
+			class="navbar navbar-inverse navbar-fixed-bottom navbar-background-bottom"
+			role="navigation">
+			<div class="col-lg-9">
+				<div>
+					<div id="promotion-text-calc" style="display: none; white-space: nowrap; font-size: 17px;"></div>
+					<ul id='slide-promotion-footer'
+						style="margin-bottom: 0px; margin-left: 35px"></ul>
+				</div>
+			</div>
+			<div class="col-lg-3 text-right">
+				<h5 class="color-white">
+					Press <img src="ELCommon/view/images/ic_back.png"
+						style="width: 35px; height: 35px" /> To Back <img
+						src="ELCommon/view/images/ic_navigate.png"
+						style="width: 35px; height: 35px" />
+				</h5>
+			</div>
+		</nav>
+	</div> -->
+
+	<!-- footer SOJO-->
+	<div data-ehotel-footer-Sojo="false" id="footer-Sojo">
+		 <!-- <nav class="navbar-fixed-bottom" role="navigation"
+			style="z-index: 9999; width: 10%">
+			<div>
+				<ul id='slide-promotion-icon' style="margin-left: 15px;"></ul>
+			</div>
+		</nav> -->
+		<nav 
+			class="navbar navbar-fixed-bottom"
+			role="navigation">
+			<div class="col-lg-11">
+				<div>
+					<!-- <div id="promotion-text-calc" style="display: none; white-space: nowrap; font-size: 17px;"></div> -->
+					<ul id='slide-promotion-footer'
+						style="margin-bottom: 5px; margin-left: 50px"></ul>
+				</div>
+			</div>
+			<!-- <div class="col-lg-3 text-right">
+				<h5 class="color-white">
+					Press <img src="ELCommon/view/images/ic_back.png"
+						style="width: 35px; height: 35px" /> To Back <img
+						src="ELCommon/view/images/ic_navigate.png"
+						style="width: 35px; height: 35px" />
+				</h5>
+			</div> -->
+		</nav>
+	</div>
+	
+	<!-- slide 1 -->
+	<div id="scenes-slide" style="height:100%;display: none;">
+        <div class="container-fluid">
+           <div class="row-fluid">
+                <div id="container-slide" class="slide" style="overflow: hidden; margin-bottom:0px">
+                 	  <ul class="clearfix"></ul>
+                </div>
+                <div class="hidden">
+					<button class="btn prev"></button><button class="btn next"></button>
+				</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- slide 2 -->
+    <div id="scenes-slide-sub" style="height:100%;display: none;">
+        <div class="container-fluid">
+           <div class="row-fluid">
+                 <div id="container-slide-sub" class="slide" style="overflow: hidden; margin-bottom:0px">
+                 	  <ul class="clearfix"></ul>
+                </div>
+                <div class="hidden">
+					<button class="btn prev"></button><button class="btn next"></button>
+				</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- slide subject -->
+    <div id="scenes-ehotel-style" style="height: 100%; display: none;">
+		<div class="container-fluid">
+			<div class="row-fluid" style="text-align: center;">
+				<div id="container-item" class="slide" style="margin-left:10px">
+					<ul class="clearfix"></ul>
+				</div>
+				<div class="hidden">
+					<button class="btn prev"></button>
+					<button class="btn next"></button>
+				</div>
+			</div>
+		</div>
+		<div class="row-footer">
+			<div class="container-fluid">
+				<div class="row-fluid" style="text-align: center;">
+					<div id="container-subject"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+    <!-- view content -->
+    <div id="scenes-detail-view" style="height:100%; display: none;">
+        <div class="container-fluid" style="height:80%">
+           <div class="row-fluid" style="height:80%">
+           		<div class="row" style="margin-left: 10%;margin-right: 10%;">
+                	<div class="col-md-5">
+                        <div id="container-detail-view" style="height: 365px; overflow: hidden;">
+                              <ul class="clearfix"></ul>
+                        </div>
+                        <div class="hidden">
+							<button class="btn prev"></button>
+							<button class="btn next"></button>
+						</div>
+                    </div>
+                    <div class="col-md-7">
+                    	<a id="content-right-view" href="javascript:void()">
+                        	<div class="content-right-view"></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar navbar-inverse navbar-fixed-bottom frame-footer subject-footer" role="navigation">
+			<div class="line"></div>
+			<div class="container-frame">
+				<div id="container-detail-subject" class="frame-sm">
+					<ul></ul>
+				</div>
+				<div class="hidden">
+					<button class="btn prev"></button>
+					<button class="btn next"></button>
+				</div>
+			</div>
+		</nav>
+    </div>
+    
+    <!-- food -->
+     <div id="scenes-food" style="height:100%;display: none;"><!--Scenes Food-->
+        <div class="container-fluid" style="height:100%;">
+           <div class="row-fluid" style="height:100%;">
+           		<div class="container-food">
+                	<div class="row bar-food-heading">
+                        <div class="col-md-4" style="padding-right:0px">
+                        	<div class="bar-food-heading-left">
+                        		<div class="col-md-12"><h4>FOODORDER</h4></div>
+                                <div class="col-md-7"><h3>YOUR TOTAL:</h3></div>
+                                <div class="col-md-5"><h3 class="order-total" style="text-align:right">0</h3></div>
+                                <div class="col-md-7"><h3>TOTAL QUALITY:</h3></div>
+                                <div class="col-md-5"><h3 class="order-quality" style="text-align:right">0</h3></div>
+                            </div>
+                        </div>
+                        <div class="col-md-5" style="padding-left:5px;padding-right:0px">
+                        	<div class="bar-food-heading-right">
+                            	<h4 class="name-customer"></h4>
+                                <p class="room"></p>
+                            	<h3></h3>
+                            </div>
+                        </div>
+                        <div class="col-md-3 bar-food-heading-image" style="padding-left:0px">
+                        </div>
+                    </div>
+                    <div class="detail-food">
+                    	<div class="col-md-4" style="padding-left: 0px; padding-right:5px">
+                        	<div>
+                            	<div id="container-food-view"> <ul class="clearfix"></ul></div>
+                            </div>
+                            <div class="bar-footer">
+                            	<!-- <div class="col-md-5 bar-footer-left">
+                                	<h4>PRESS <span class="label label-default">INFO</span> TO DISPLAY</h4>
+                                </div>
+                                <div class="col-md-7 bar-footer-right">
+                                	<img src="ELCommon/view/images/ic_ordered.png"/>
+                                    <h4>YOUR ORDERED</h4>
+                                </div> -->
+                               
+                            </div>
+                        </div>
+                        <div class="col-md-8" style="padding-left:0px;padding-right:0px">
+                            <div>
+                                <div id="content-food-list"><ul class="clearfix"></ul></div>
+                            </div>
+                            <div class="bar-footer-content">
+                            	<div class="col-md-6" style="padding-right:5px; padding-left:0px">
+                                	<div style="height:40px; background-color:rgba(0,0,0,0.8)">
+                                		<h4 style="padding:0 10px 0 10px">Please, choose item and press <span class="label label-default">OK</span> to add into your menu. Thank you</h4>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" style="padding-left:0px; padding-right:0px">
+                                	<div style="height:40px; background-color:rgba(0,0,0,0.8)">
+                                        <div class="col-md-6"><h4>PRESS <span class="label label-default">BACK</span> TO LEVEL UP</h4></div>
+                                        <div class="col-md-6"><h4>PRESS <span class="label label-default">EXIT</span> TO CLOSE PAGE</h4></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<nav class="navbar navbar-inverse navbar-fixed-bottom frame-footer subject-footer" role="navigation">
+		 	<div class="line"></div>
+			<div class="container-frame">
+				<div id="container-food-subject" class="frame-sm">
+					<ul></ul>
+				</div>
+				<div class="hidden">
+					<button class="btn prev"></button>
+					<button class="btn next"></button>
+				</div>
+			</div>  
+			
+		</nav>
+    </div>
+    
+	<!-- tv -->	
+	
+	<div id="scenes-ehotel-tv" style="height: 100%; display: none; padding-top: 8%">
+		
+		<div class="container-fluid">
+			<div class="row-fluid" style="text-align: center;">
+				<div id="scenes-tv-slide" class="slide_channel">
+					<ul class="clearfix"></ul>
+				</div>
+				<div class="container-btn-tv">
+					<button class="btn prev">
+						<i class="fa fa-chevron-circle-left fa-3x" aria-hidden="true"></i>
+					</button>
+					<button class="btn next">
+						<i class="fa fa-chevron-circle-right fa-3x" aria-hidden="true"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="slide_button"></div>
+	</div>
+	
+	<div id="scenes-tv" style="margin-top: 140px;display: none;">
+		<div id="player_container"></div>
+		<!--Scenes Slide-->
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div id="container-slide-tv" class="col-md-12 col-xs-12 centering text-center" style="padding: 0 30px !important;"></div>
+			</div>
+		</div>
+	 <nav class="navbar navbar-inverse navbar-fixed-bottom text-inform-tv" role="navigation"></nav>
+	</div>
+     <div id="scenes-view-detail" style="height:100%; display:none"> 
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="col-lg-4 list-subject">
+                    <div class="panel panel-default inset"  style="background: rgba(51, 51, 51, 0.7); margin-bottom: 0px;">
+                        <div class="panel-heading" style="background: rgba(51, 51, 51, 0.8); color: #fff; height: 45px; padding: 5px 5px">
+                        </div>
+                        <div>
+                            <div id="item-left" style="height: 268px; overflow: hidden;">
+                                 <ul  style="list-style-type: none; padding-left: 0!important;"></ul>
+                            </div>
+                        </div>
+                        <div class="panel-footer color-white inset" style="background: rgba(51, 51, 51, 1); height: 57px">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8" style="width: 62%">
+                    <div class="panel panel-default inset" style="background:rgba(51,51,51,0.7);margin-bottom: 0px;">
+                        <div id="content-right" class="panel-body content-right" style="height: 370px; overflow: hidden;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<!-- movies content -->
+	<div id="scenes-movies-content" style="height: 100%; display: none;">
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div id="scenes-movies-item" class="slide"
+					style="overflow: hidden; margin-bottom: 0px">
+					<ul class="clearfix"></ul>
+				</div>
+				<div class="hidden">
+					<button class="btn prev"></button>
+					<button class="btn next"></button>
+				</div>
+			</div>
+		</div>
+		<nav class="navbar navbar-inverse navbar-fixed-bottom frame-footer subject-footer" role="navigation">
+			<div class="line"></div>
+			<div class="container-frame">
+				<div id="scenes-movies-subject" class="frame-sm">
+					<ul></ul>
+				</div>
+				<div class="hidden">
+					<button class="btn prev"></button>
+					<button class="btn next"></button>
+				</div>
+			</div>
+		</nav>
+	</div>
+
+	<!-- movies detail -->
+    <div id="scenes-detail-movies"> 
+        <div class="movies-detail"></div>
+    </div> 
+    
+    <!-- video player -->
+    <div id="subtitle" class="navbar-fixed-bottom text-center"></div>
+	<div id="scenes-player"></div>
+	<!-- video relation -->
+	<div class="navbar navbar-inverse navbar-fixed-bottom frame-footer"
+		role="navigation" id="scenes-relate-container" style="display:none">
+		<div class="container-frame">
+			<div id="scenes-movies-relate" class="frame-small">
+				<ul></ul>
+			</div>
+			<div class="hidden"><button class="prev"></button><button class="next"></button>
+			</div>
+		</div>
+	</div>
+	
+	<!-- video subtitle -->
+	
+	<div id="scenes-live-tv"> 
+        <a href="javascript:void()" onKeyDown="eHotelLiveTV.keyDown()"></a>
+    </div> 
+   
+    <div id="scenes-introduce" style="height: 100%; display: none;">
+    	<div class="container-fluid">
+			<div class="row-fluid">
+				<div id="scenes-introduce-slide" class="slide"
+					style="overflow: hidden; margin-bottom: 0px">
+					<ul class="clearfix"></ul>
+				</div>
+				<div class="hidden">
+					<button class="btn prev"></button>
+					<button class="btn next"></button>
+				</div>
+			</div>
+		</div>
+    </div> 
+    <!-- My Stay -->
+     <div id="scenes-mystay" style="height: 100%; display: none;">
+    	<div class="container-fluid">
+			<div class="row-fluid">
+				<div id="scenes-mystay-slide" class="slide"
+					style="overflow: hidden; margin-bottom: 0px">
+					<ul class="clearfix"></ul>
+				</div>
+				<div class="hidden">
+					<button class="btn prev"></button>
+					<button class="btn next"></button>
+				</div>
+			</div>
+		</div>
+    </div> 
+    <!-- dinning -->
+    <div id="scenes-dinning">
+    	<div id="wrapper-dinning" class="toggled">
+        	<div class="slidebar-view-sub" id="sidebar-wrapper-view-sub" style="overflow: hidden;">
+                <div>
+                	<div id="sidebar-view-sub">
+                    	<ul class="sidebar-nav-view-sub" style="margin-top: 200px;"></ul>
+                	</div>
+                </div>
+                
+               <div>
+               		<div id="sidebar-icon-view-sub">
+                    	<ul class="sidebar-nav-icon-view-sub" style="margin-top: 200px;"></ul>
+               		</div>
+                </div>
+            </div> <!-- /sidebar-subject -->
+            <div>
+            	<div class="row" style="margin-top:8%; margin-left:5px; margin-right:5px">
+                  <div class="col-lg-4">
+                       <div class="panel panel-default" style="background:rgba(51,51,51,0.7);margin-bottom: 0px;">
+                            <div class="panel-heading" style="background: rgba(51,51,51,0.8); color: #fff; height: 45px; padding:5px 5px">
+                              <div class="row">
+                                  <div class="col-md-6 text-left">
+                                      Order <span class="badge badge-top" style="padding-bottom: 3px;">0</span>
+                                  </div>
+                                  <div class="col-md-6 text-right total-amount">0 <i class="fa fa-usd"></i></div>
+                              </div>
+                            </div>
+                            <div>
+                              <div id="food-subject" style="height: 343px;overflow: auto;">
+                                  
+                              </div>
+                            </div>
+                            <div class="panel-footer color-white" style="background: rgba(51,51,51,1); height:57px">
+                              <div class="col-md-6">
+                                  <a tabindex="1" href="javascript:void()" onKeyDown="eHotelDinningLeft.viewCardFocus()" role="button" class="btn btn-warning btn-block viewcard"><i class="fa fa-cart-arrow-down"></i> View Card <span class="badge badge-bottom">0</span></a>
+                              </div>
+                               <div class="col-md-6">
+                                <a tabindex="0" href="javascript:void()" onKeyDown="eHotelDinningLeft.checkOutFocus()" role="button" class="btn btn-warning btn-block checkoutcard"><i class="fa fa-check-square-o"></i> Checkout Order</a>
+                                </div>
+                            </div>
+                        </div>
+                  </div>
+                  <div class="col-lg-8 food-list">
+                     <div id="food-detail"></div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- bill -->
+    <div id="scenes-bill">
+    	<div class="container-fluid">
+        	<div class="row-fluid">
+            	<div class="container-bill">
+                	<div class="row bar-bill-heading">
+                        <div class="col-md-4" style="padding-right:0px">
+                        	<div class="bar-bill-heading-left">
+                        		<div class="col-md-8"><h4>YOUR BILL</h4></div>
+                                <div class="col-md-4" style="text-align:right"><img src="ELCommon/view/images/ic_bill.png" /></div>
+                                <div class="col-md-6"><h3>YOUR TOTAL:</h3></div>
+                                <div class="col-md-6 total-amount"><h3>0 USD</h3></div>
+                                <div class="col-md-7"><h3>QUANLITY TOTAL:</h3></div>
+                                <div class="col-md-5 total-quanlity"><h3>20</h3></div>
+                            </div>
+                        </div>
+                        <div class="col-md-8" style="padding-left:5px">
+                        	<div class="bar-bill-heading-right">
+                            	<h4 class="name-customer"></h4>
+                                <p class="room"></p>
+                            	<h3></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="detail-bill">
+                        <div style="padding-right:0px">
+                        	<div class="row bar-bill-title">
+                                <div class="col-md-1"><h4>No</h4></div>
+                                <div class="col-md-2"><h4>Date</h4></div>
+                                <div class="col-md-6"><h4>Description</h4></div>
+                                <div class="col-md-1" style="text-align:right"><h4>Quality</h4></div>
+                               <div class="col-md-2" style="text-align:right"><h4>Amount</h4></div>
+                            </div>
+                        	<div>
+                                <div id="bill-detail" style="height: 350px; overflow: hidden;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+     </div>
+     
+     
+    <div id="msg-error">
+        <div class="modal" data-backdrop="static" style="padding-top:15%">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="modal-header" style="border-bottom: 1px solid #F00;padding: 2px;">
+                <h4 class="modal-title text-center text-danger"></h4>
+              </div>
+              <div class="modal-body text-center" style="padding: 7px;">
+                
+              </div>
+              <div class="modal-footer" style="text-align: center;">
+              	<a tabindex="0"  data-type="error" href="javascript:void()" class="btn btn-sm btn-danger btn-focus" role="button" onClick="eCard.orderErrorClick()"  onKeyDown="eCard.orderError()">Close</a>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    
+    <div id="msg-info">
+        <div class="modal" data-backdrop="static" style="padding-top:15%">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title text-center color-white"></h4>
+              </div>
+              <div class="modal-body text-center" style="padding: 7px;">
+                
+              </div>
+              <div class="modal-footer" style="text-align: center;">
+              	<a tabindex="0" href="javascript:void()" data-type="info" class="btn btn-warning btn-sm" role="button" onKeyDown=""><i class="fa fa-times"></i> Close</a>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div> 
+    
+    <div id="msg-success">
+        <div class="modal" data-backdrop="static" style="padding-top:15%">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title text-center"></h4>
+              </div>
+              <div class="modal-body text-center" style="padding: 7px;">
+                
+              </div>
+              <div class="modal-footer" style="text-align: center;">
+              	<a tabindex="0" href="javascript:void()" data-type="info" class="btn btn-warning btn-sm btn-focus" role="button" onClick="eCard.orderSuccessClick()" onKeyDown="eCard.orderSuccess()"><i class="fa fa-times"></i> Close</a>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div> 
+
+    <div id="msg-confirm">
+        <div class="modal" data-backdrop="static" style="padding-top:15%">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title text-center"></h4>
+              </div>
+              <div class="modal-body text-center" style="padding: 7px;">
+                
+              </div>
+              <div class="modal-footer" style="text-align: center;">
+              	<a tabindex="0" href="javascript:void()"  class="btn btn-sm" role="button" onKeyDown="eCard.confirmNo()">No</a>
+                <a tabindex="1" href="javascript:void()"  class="btn btn-sm" role="button" onKeyDown="eCard.confirmYes()">Yes</a>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    
+    <!--Modal handle register TV-->
+    <div id="msg-register">
+        <div class="modal" data-backdrop="static" style="padding-top:17%">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title text-center">Room Number Setting</h4>
+              </div>
+              <div class="modal-body text-center" style="padding: 7px;">
+              		<h5 class="text-danger"></h5>
+				    <input type="text" onkeydown="eCommon.roomSetting()" 
+				    id="roomSetting" placeholder="Room Number Setting">
+              </div>
+              <div class="modal-footer" style="text-align: center;">
+              	<a tabindex="0" href="javascript:void()"  class="btn btn-sm" role="button" 
+                	onKeyDown="eCommon.registerTV(this, event)">Register</a>
+                <a tabindex="1" href="javascript:void()"  class="btn btn-sm" role="button" 
+                	onKeyDown="eCommon.registerTV(this, event)">Clear</a>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div> <!--/.Modal handle register TV -->
+    
+    <!-- card -->
+    <div id="msg-card">
+        <div class="modal fade" data-backdrop="static" style="padding-top:9%">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title text-center"></h4>
+              </div>
+              <div class="modal-body text-center food-order">
+              	 <div id="food-order"></div>
+              </div>
+              <div class="modal-footer">
+              	<div class="modal-footer-total">
+                    <div class="col-md-6">
+                        <a tabindex="1" href="javascript:void()" class="btn btn-sm" role="button" 
+                        	onKeyDown="eCard.keyDownClose()" onClick="eCard.closeClick(this,event)"><i class="fa fa-times"></i> Close</a>
+                        <a tabindex="0" href="javascript:void()" class="btn btn-sm" role="button" 
+                        	onKeyDown="eCard.keyDownOrder()" onClick="eCard.orderClick(this,event)"><i class="fa fa-share-square-o"></i> Order</a>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 style="margin-top: 0px;">TOTAL QUANTITY</h4>
+                        <h4>TOTAL AMOUNT</h4>
+                    </div>
+                </div>
+                <div class="modal-footer-guide">
+                	<div class="col-md-6"><h4 style="text-align:left">PRESS <span class="label label-default">LEFT</span> TO DECREASE QUANTITY</h4></div>
+                    <div class="col-md-6"><h4>PRESS <span class="label label-default">RIGHT</span> TO INCREASE QUANTITY</h4></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+   
+	<script type="text/javascript" src="ELCommon/model/SS.BlockUI.js"></script>
+	<script type="text/javascript" src="ELCommon/model/SS.Backstretch.min.js"></script>
+	<script type="text/javascript" src="ELCommon/model/SS.SlideShow.js"></script>
+	<script type="text/javascript" src="ELCommon/model/SS.PluginsSlide.js"></script>
+	<script type="text/javascript" src="ELCommon/model/SS.Slide.js"></script>
+	<script type="text/javascript" src="ELCommon/model/SS.SlideBar.js"></script>
+	<script type="text/javascript" src="ELCommon/model/SS.MediaElementPlayer.js"></script>
+	<script type="text/javascript" src="ELCModule/model/SS.VideoIntro.js"></script>
+	<script type="text/javascript" src="ELCModule/model/SS.MusicIntro.js"></script>
+	
+	<script type="text/javascript" src="ELCModule/model/SS.Welcome.js?v=01"></script>
+	<script type="text/javascript" src="ELCModule/model/SS.BirthDay.js"></script>
+	<script type="text/javascript" src="ELCModule/model/SS.Standby.js"></script>
+	<script type="text/javascript" src="ELCModule/model/SS.Main.js"></script>
+	<script type="text/javascript" src="ELCModule/model/SS.Movies.js"></script>
+	<script type="text/javascript" src="ELCModule/model/SS.ViewDetail.js"></script>
+	<script type="text/javascript" src="ELCModule/model/SS.Information.js"></script>
+	<script type="text/javascript" src="ELCModule/model/SS.ScreenSlide.js"></script>
+	<script type="text/javascript" src="ELCModule/model/SS.VideoPlayer.js"></script>
+	<script type="text/javascript" src="ELCModule/model/SS.VideoIntro.js"></script>
+	<script type="text/javascript" src="ELCModule/model/SS.AudioPlayer.js"></script>
+	<script type="text/javascript" src="ELCModule/model/SS.MusicIntro.js"></script>
+	<script type="text/javascript" src="ELCModule/model/SS.Music.js"></script>
+	<script type="text/javascript" src="ELCModule/model/SS.Player.js"></script>
+	<script type="text/javascript" src="ELCModule/model/SS.TV.js"></script>
+	<script type="text/javascript" src="ELCModule/model/SS.TVPlayer.js?v=20180920"></script>
+	<script type="text/javascript" src="ELCModule/model/SS.MusicSoJoPlayer.js"></script>
+<!-- 	<script type="text/javascript" src="ELCModule/model/SS.AVPlayer.js"></script> -->
+	<script type="text/javascript" src="ELCModule/model/SS.RelateVideo.js"></script>
+	<script type="text/javascript" src="ELCModule/model/SS.Message.js"></script>
+	<script type="text/javascript" src="ELCModule/model/SS.Weather.js"></script>
+	<script type="text/javascript" src="ELCModule/model/SS.Introduce.js"></script>
+	<script type="text/javascript" src="ELCModule/model/SS.IntroPlayer.js"></script>
+	<script type="text/javascript" src="ELCModule/model/SS.SlideMiddle.js"></script> 
+	<script type="text/javascript" src="ELCModule/model/SS.Card.js?v=181108"></script> 
+	<script type="text/javascript" src="ELCModule/model/SS.ExchangeRate.js"></script>
+	<script type="text/javascript" src="ELCModule/model/SS.Restaurant.js"></script>
+	<script type="text/javascript" src="ELCModule/model/SS.MyStay.js"></script>
+	<script type="text/javascript" src="ELCModule/model/SS.Food.js"></script>
+	<script type="text/javascript" src="ELCModule/model/SS.Subtitle.js"></script>
+	<script type="text/javascript" src="ELCModule/model/SS.Bill.js"></script>
+
+
+</body>
+
+</html>

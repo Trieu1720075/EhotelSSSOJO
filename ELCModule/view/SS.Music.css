@@ -1,0 +1,95 @@
+#scenes-music .rslides li img {
+  height: 395px;
+}
+#scenes-music .list-music {
+  background: rgba(0, 0, 0, 0.5);
+  padding-left: 0px;
+  padding-right: 0px;
+  box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.3);
+}
+#scenes-music li .playing {
+  border-left: 10px solid #f36f21;
+}
+#scenes-music .item-music {
+  margin: 0px;
+  border-left: 10px solid transparent;
+  padding-right: 10px;
+}
+#scenes-music .item-music:focus {
+  outline: none;
+  background: #f36f21;
+}
+#scenes-music .item-music h5 {
+  white-space: nowrap;
+  overflow: hidden;
+  o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+}
+#scenes-music .music-detail {
+  margin-left: 0%;
+  height: 395px;
+}
+#scenes-music .music-detail .bar-title {
+  position: absolute;
+  z-index: 999;
+  text-align: center;
+  width: 80%;
+  background: rgba(0, 0, 0, 0.7);
+  margin-top: 280px;
+  margin-left: 50px;
+  height: 40px;
+}
+#scenes-music .music-detail .bar-title h4 {
+  color: #fff;
+  line-height: 20px;
+  font-size: 20px;
+  padding-top: 10px;
+  margin: 0px;
+  overflow: hidden;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+#scenes-music .bar-footer-content-music {
+  height: 35px;
+}
+#scenes-music .bar-footer-content-music h4 {
+  font-size: 11px;
+  color: #fff;
+  margin: 0px;
+  overflow: hidden;
+  line-height: 17px;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+#scenes-music .bar-footer-content-music span {
+  background-color: #fff;
+  color: #000;
+}
+#scenes-music .bar-footer-music {
+  height: 35px;
+  background: rgba(231, 166, 26, 0.8);
+  margin-top: 25px;
+}
+#scenes-music .bar-footer-music .bar-footer-left-music h4,
+#scenes-music .bar-footer-music .bar-footer-right-music h4 {
+  font-size: 11px;
+  color: #000;
+  margin: 0px;
+  overflow: hidden;
+  line-height: 17px;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+#scenes-music .bar-footer-music .bar-footer-right-music h4 {
+  text-align: right;
+}
+#scenes-music .bar-footer-music span {
+  background-color: #fff;
+  color: #000;
+}
