@@ -1,12 +1,12 @@
 API = (function(){ // open IIFE
-	var defaults = {host:'http://joso-api.e-hotel.vn', serial: eCommon.getSerialNumber() };
-	//var defaults = {host:'http://172.16.9.205:18383', serial: eCommon.getSerialNumber() };
+	//var defaults = {host:'http://joso-api.e-hotel.vn', serial: eCommon.getSerialNumber() };
+	var defaults = {host:'http://172.16.9.205:18383', serial: eCommon.getSerialNumber() };
 	var init = function(option){
 		var opt = $.extend({}, defaults, option);
 		opt.serial = eCommon.getSerialNumber();
 		// location image
-		this.LOCATION_IMAGE = 'http://joso-data.e-hotel.vn/Image';
-		//this.LOCATION_IMAGE = 'http://172.16.9.205:80/Image';
+		//this.LOCATION_IMAGE = 'http://joso-data.e-hotel.vn/Image';
+		this.LOCATION_IMAGE = 'http://172.16.9.205:80/Image';
 		// MY HOTEL
 		this.HOTEL = 'E01';
 		// MOVIES
@@ -120,6 +120,8 @@ API = (function(){ // open IIFE
 		this.CMD_26 = opt.host + '/WAI_01/CoreMedia?typetvbox=TV&keystb='+opt.serial+'&command=26';
 		// get Birth Day
 		this.CMD_30 = opt.host + '/WAI_01/CoreMedia?typetvbox=TV&keystb='+opt.serial+'&command=30';
+		// get Weather TODAY and TOMOROW
+		this.CMD_125 = opt.host + '/WAI_01/CoreMedia?command=125&keystb='+opt.serial+'';
 	};
 	var instance = null;
 	var static_ = {

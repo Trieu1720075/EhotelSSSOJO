@@ -792,14 +792,14 @@ li.list-group-item p {
 #slide-promotion-footer h6{
   margin: 5px 0 0 0px;
   color: #2AD1C8;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: sojofont;
   font-size: 35px;
 }
 
 #slide-promotion-footer li.slide_on h6.promotion-slow{
   margin: 20px 0 10 0px;
   color: #2AD1C8;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: sojofont;
   font-size: 25px;
   -moz-transform: translateX(1000px);
   -webkit-transform: translateX(1000px);
@@ -1161,7 +1161,7 @@ ul.horizontal-slide li[class*="item"]:first-child {
      position: relative;
      color: white;
      top: -0.5em;
-     font-family: Arial, Helvetica, sans-serif;
+     font-family: sojofont;
 }
 .textcolor {
   color: white;
@@ -1170,7 +1170,7 @@ ul.horizontal-slide li[class*="item"]:first-child {
 }
 .textforday {
   color: white;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: sojofont;
   font-size: 35px;
 }
 .container-welcome {

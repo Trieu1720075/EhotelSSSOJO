@@ -40,7 +40,7 @@ eWelcome.show = function () {
 	//eTVPlayer.play('http://172.16.9.205/Music/audio_1526711059265.mp3')
 	//eCommon.launchApp('com.samsung.tv.cobalt-yt', null, 500);
 	//this.showSlideShow();
-	timeoutStandby = setTimeout(function () { eWelcome.hide(); eStandby.init() }, 5000);
+	timeoutStandby = setTimeout(function () { eWelcome.hide(); eStandby.init() }, 300000);
 }
 eWelcome.hide = function () {
 	clearTimeout(timeoutStandby);
@@ -570,7 +570,7 @@ eWelcome.playSound = function (type) {
 eWelcome.getWeather = function () {
 	var _ = this;
 	$.ajax({
-		url: API.getAPI().CMD_119 + eCommon.getDay(),
+		url: API.getAPI().CMD_125,
 		data: "",
 		cache: false,
 		type: 'GET',
@@ -586,7 +586,7 @@ eWelcome.getWeather = function () {
 				$('.temp-min').html(tmpmin + '&deg;C');
 				$('.img-weather').attr('src', API.getAPI().LOCATION_IMAGE + image);
 				//$('.media-object').attr('src', API.getAPI().LOCATION_IMAGE + image);
-				$('.pull-right').find('.media-object').attr('src', API.getAPI().LOCATION_IMAGE + image);
+				//$('.pull-right').find('.media-object').attr('src', API.getAPI().LOCATION_IMAGE + image);
 
 			});
 		},

@@ -44,7 +44,6 @@ eStandby.getData = function() {
 					eCommon.ROOM = nameRoom;
 					eCommon.setLang(currentLang);
 					_.getWeather();
-					_.getWeatherTomorrow();
 					_.name = nameRoom;
 					$(eCommon.navbarName).html(nameRoom);
 					$('.ehotel-name-welcome').html(nameWelcome);
@@ -180,42 +179,10 @@ eStandby.keyDown = function($this, event) {
 			break;
 	}
 }
-eStandby.getWeatherTomorrow = function () {
-	var _ = this;
-	$.ajax({
-		url: API.getAPI().CMD_119 + eCommon.getTomorrow(),
-		data: "",
-		cache: false,
-		type: 'GET',
-		async: true,
-		success: function (response) {
-			var weather = xmlAPI.loadXMLString(response);
-			var length = weather.find('item').length;
-			weather.find('item').each(function () {
-				var tmpmin = Math.round($(this).find('tempmin').text());
-				var tmpmax = Math.round($(this).find('tempmax').text());
-				var humidity = $(this).find('humidity').text();
-				var winSpeed = $(this).find('winSpeed').text();
-				var image = $(this).find('urlImage').text();
-				$('.temp-max-tomorow').html(tmpmax + '&deg');
-				$('.temp-min-tomorow').html(tmpmin + '&deg ');
-				$('.humidity').html(humidity + '&%');
-				$('.winSpeed').html(winSpeed + '&m/s');
-				$('.img-weather-tomorow').attr('src', API.getAPI().LOCATION_IMAGE + image);
-				//$('.media-object').attr('src', API.getAPI().LOCATION_IMAGE + image);
-				$('.pull-right').find('.media-object').attr('src', API.getAPI().LOCATION_IMAGE + image);
-
-			});
-		},
-		error: function (jqXHR, exception) {
-			eCommon.logs(eCommon.ajaxError(jqXHR, exception) + ' --> ' + API.getAPI().CMD_119 + eCommon.getDay());
-		}
-	});
-}
 eStandby.getWeather = function () {
 	var _ = this;
 	$.ajax({
-		url: API.getAPI().CMD_119 + eCommon.getDay(),
+		url: API.getAPI().CMD_125,
 		data: "",
 		cache: false,
 		type: 'GET',
@@ -224,21 +191,38 @@ eStandby.getWeather = function () {
 			var weather = xmlAPI.loadXMLString(response);
 			var length = weather.find('item').length;
 			weather.find('item').each(function () {
-				var tmpmin = Math.round($(this).find('tempmin').text());
-				var tmpmax = Math.round($(this).find('tempmax').text());
-				var humidity = $(this).find('humidity').text();
-				var winSpeed = $(this).find('winSpeed').text();
-				var tmpav = Math.round((tmpmax+tmpmin)/2);
-				var image = $(this).find('urlImage').text();
-				$('.temp-max').html(tmpmax + '&deg');
-				$('.temp-min').html(tmpmin + '&deg ');
-				$('.temp-avg').html(tmpav + '&deg');
-				$('.humidity').html(humidity + '&%');
-				$('.winSpeed').html(winSpeed + '&m/s');
-				$('.img-weather').attr('src', API.getAPI().LOCATION_IMAGE + image);
-				//$('.media-object').attr('src', API.getAPI().LOCATION_IMAGE + image);
-				$('.pull-right').find('.media-object').attr('src', API.getAPI().LOCATION_IMAGE + image);
-
+				var day = $(this).find('day').text();
+				if (day == eCommon.getDay())
+				{
+					
+					var tmpmin = Math.round($(this).find('tempmin').text());
+					var tmpmax = Math.round($(this).find('tempmax').text());
+					var tmp = Math.round($(this).find('temp').text());
+					var humidity = $(this).find('humidity').text()*100;
+					var winSpeed = Math.round($(this).find('windspeed').text());
+					var image = $(this).find('urlImage').text();
+					var a = API.getAPI().LOCATION_IMAGE + image;
+					$('.temp-max').html(tmpmax + '&deg');
+					$('.temp-min').html(tmpmin + '&deg ');
+					$('.temp-avg').html(tmp + '&deg');
+					$('.humidity').html(humidity + '%');
+					$('.winSpeed').html(winSpeed + 'm/s');
+					$('.img-weather').attr('src', API.getAPI().LOCATION_IMAGE + image);
+				}
+				else {
+					var tmpmin = Math.round($(this).find('tempmin').text());
+					var tmpmax = Math.round($(this).find('tempmax').text());
+					var tmp = Math.round($(this).find('temp').text());
+					var humidity = $(this).find('humidity').text()*100;
+					var winSpeed = Math.round($(this).find('windspeed').text());
+					var image = $(this).find('urlImage').text();
+					$('.temp-max-tomorow').html(tmpmax + '&deg');
+					$('.temp-min-tomorow').html(tmpmin + '&deg ');
+					$('.humidity-tomorow').html(humidity + '%');
+					$('.winSpeed-tomorow').html(winSpeed + 'm/s');
+					$('.img-weather-tomorow').attr('src', API.getAPI().LOCATION_IMAGE + image);
+				}
+				
 			});
 		},
 		error: function (jqXHR, exception) {
