@@ -95,7 +95,7 @@ API = (function(){ // open IIFE
 		// Order dinning
 		this.CMD_114 = opt.host + '/WAI_01/CoreMedia?typetvbox=TV&command=114&keystb='+opt.serial+'&items=';
 		// get language and welcome
-		this.CMD_46 = opt.host + '/WAI_01/CoreMedia?typetvbox=TV&command=46&keystb='+opt.serial+'&ip=' + eCommon.IP_ADDR;
+		this.CMD_46 = opt.host + '/WAI_01/CoreMedia?typetvbox=TV&command=46&keystb='+opt.serial+'&ip=' + eCommon.IP_ADDR + '|' + eCommon.MAC_ADDR;
 		//set language to get content
 		this.CMD_31 = opt.host + '/WAI_01/CoreMedia?typetvbox=TV&command=31&keystb='+opt.serial+'&langid=';
 		// get promotion

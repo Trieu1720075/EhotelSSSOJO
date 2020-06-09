@@ -15,6 +15,9 @@
 <!--<script type="text/javascript" src="$MANAGER_WIDGET/Common/Util/Include.js"></script>
 <script type="text/javascript" src="$MANAGER_WIDGET/Common/Util/Language.js"></script>
 <script type="text/javascript" src="$MANAGER_WIDGET/Common/Plugin/Define.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="jquery.marquee.js"></script>
+<script src="jquery.pause.js"></script>
 
 <script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/API/Widget.js"></script>
 <script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/API/TVKeyValue.js"></script>
@@ -33,6 +36,7 @@
 <object id="pluginObjectTVMW"classid="clsid:SAMSUNG-INFOLINK-TVMW" style="position: absolute; width: 0; height: 0; opacity: 0;"></object>
 <object id="pluginObjectNNavi" classid="clsid:SAMSUNG-INFOLINK-NNAVI" style="position: absolute; width: 0px; height: 0px;"></object>
 <object id="pluginObjectPlayer" classid="clsid:SAMSUNG-INFOLINK-SEF" style="position: absolute; width:0px; height:0px; opacity:0"></object>
+<object id="pluginPower" border="0" classid="clsid:SAMSUNG-INFOLINK-SEF" style="opacity: 0.0; background-color: #000; width: 0px; height: 0px;"></object>
 <object id="pluginObjectNetwork" border="0" classid="clsid:SAMSUNG-INFOLINK-NETWORK" style="position: absolute;width: 0px; height: 0px;"></object>
 <object id="pluginAudio" border="0" classid="clsid:SAMSUNG-INFOLINK-SEF" style="opacity: 0.0; background-color: #000; width: 0px; height: 0px;"></object>
 <!-- <object id='pluginSefVOD' border=0 classid='clsid:SAMSUNG-INFOLINK-SEF'></object> -->
@@ -366,14 +370,11 @@
 				<ul id='slide-promotion-icon' style="margin-left: 15px;"></ul>
 			</div>
 		</nav> -->
-		<nav 
-			class="navbar navbar-fixed-bottom"
-			role="navigation">
+		<nav class="navbar-fixed-bottom" role="navigation">
 			<div class="col-lg-11">
 				<div>
-					<!-- <div id="promotion-text-calc" style="display: none; white-space: nowrap; font-size: 17px;"></div> -->
-					<ul id='slide-promotion-footer'
-						style="margin-bottom: 5px; margin-left: 50px"></ul>
+					<div id="promotion-text-calc" style="display: none; white-space: nowrap; font-size: 17px;"></div>
+					<ul id="slide-promotion-footer" style="margin-bottom: 5px; margin-left: 30px"></ul>
 				</div>
 			</div>
 			<!-- <div class="col-lg-3 text-right">

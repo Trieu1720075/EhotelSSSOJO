@@ -1,7 +1,8 @@
 eCommon = {
-	languageCode: '1',
+	languageCode: '2',
 	CODE_EN: '2',
 	CODE_VN: '1',
+	mode:'',
 	IS_PLAYING: false,
 	navbarName: '.ehotel-name-room',
 	typeVideo: null,
@@ -11,6 +12,7 @@ eCommon = {
 	dateNavbarHome: '.ehotel-date-room',
 	dateNavbarHomeStandby: '.ehotel-date-room-standby',
 	timeperiodNavbarHome: '.ehotel-timeperiod-room',
+	contentPromotion: '.sojo-promotion',
 	background: null,
 	MOD: 'MOD',
 	VOD: 'VOD',
@@ -66,6 +68,7 @@ eCommon = {
 	KEY_SERIAL_NUMBER: '2000',// default is 2001
 	KEY_ROOM_NUMBER: '',
 	IP_ADDR: '0.0.0.0',
+	MAC_ADDR: '0:0:0:0',
 	IS_KEY_PRESS: false, // not allow press channel number
 	countDownInterval: null,
 	countDownTimeout: null,
@@ -144,36 +147,30 @@ eCommon.init = function () {
 }
 function onEvent_SEF(event, data1) {
 	var requestTablet = data1.split("$");
-	//eTVPlayer.show();
 	if (requestTablet[0].toLowerCase() === "TC_ApiBackWelcome".toLowerCase()) {
 		eCommon.showBackground();
 		eTVPlayer.back();
-		//eTVPlayer.stop();
-		//eMusic.stop();
-		//eVideoSS.stop();
-		//eTVPlayer.hide();
-		//eMusic.hide();
-		//eWelcome.hide();
-		//eStandby.show();
-		//eWelcome.startApp();
+		eStandby.init();
 	}
 	else if (requestTablet[0].toLowerCase() === "TC_ApiPlayChannel".toLowerCase()) {
-		//eCommon.log(requestTablet);
 		eTVPlayer.stop();
-		//eMusic.stop();
-		//eTVPlayer.hide();
-		//eMusic.stop();
-		//eMusic.hide();
+		eTVPlayer.back();
 		eWelcome.hide();
 		eStandby.hide();
 		eTVPlayer.play(requestTablet[1]);
-		//eTVPlayer.hide();
+	}
+	else if (requestTablet[0].toLowerCase() === "TC_ApiPauseVideo".toLowerCase()) {
+		eVideoSS.pause();
+	}
+	else if (requestTablet[0].toLowerCase() === "TC_ApiResumeVideo".toLowerCase()) {
+		eVideoSS.resume();
 	}
 	else if (requestTablet[0].toLowerCase() === "TC_ApiPlayVideo".toLowerCase()) {
 		eTVPlayer.back();
 		eWelcome.hide();
 		eStandby.hide();
 		// play video
+		eCommon.mode = requestTablet[2];
 		eVideoSS.play({
 			url: requestTablet[1],
 		});
@@ -181,19 +178,15 @@ function onEvent_SEF(event, data1) {
 	else if (requestTablet[0].toLowerCase() === "TC_ApiPlayMusic".toLowerCase()) {
 		eTVPlayer.back();
 		eCommon.showBackground();
-		//eTVPlayer.stop();
-		//eVideoSS.stop();
-		//eVideoSS.hide();
-		//eMusic.stop();
-		//eVideoSS.stop();
-		//eVideoSS.hide();
-		//eTVPlayer.hide();
 		eWelcome.hide();
 		eStandby.hide();
-		//eWelcome.backWelcome();
-		//eMusic.hide();
-		//eWelcome.startApp();
 		eMusic.play(requestTablet[1]);
+	}
+	else if (requestTablet[0].toLowerCase() === "TC_ApiPauseMusic".toLowerCase()) {
+		eMusic.pause();
+	}
+	else if (requestTablet[0].toLowerCase() === "TC_ApiResumeMusic".toLowerCase()) {
+		eMusic.resume();
 	}
 	else if (requestTablet[0].toLowerCase() === "TC_ApiUpDownChannel".toLowerCase()) {
 		var num = parseInt(requestTablet[2]) + parseInt(requestTablet[3]);
@@ -201,11 +194,6 @@ function onEvent_SEF(event, data1) {
 		eStandby.hide();
 		eTVPlayer.remoteKeyPress(num);
 	} else if (requestTablet[0].toLowerCase() === "TC_ApiControlVolume".toLowerCase()) {
-		// var volPlug= document.getElementById("pluginAudio");
-		// volPlug.Open('Audio','1.000','Audio');
-		// volPlug.Execute("SetVolume",5);
-		// eCommon.logs(JSON.stringify(volPlug.Execute("SetVolume",5)));
-		// volPlug.Close()
 		eTVPlayer.stop();
 	}
 }
@@ -281,9 +269,11 @@ eCommon.getIP = function () {
 					eCommon.logs(JSON.stringify({
 						message: 'Available Network interface',
 						interfaceType: networks[i].interfaceType,
-						ip: networks[i].ip
+						ip: networks[i].ip,
+						mac: networks[i].mac,
 					}));
 					eCommon.IP_ADDR = networks[i].ip;
+					eCommon.MAC_ADDR = networks[i].mac
 				}
 			}
 			eCommon.applicationSetup();
@@ -706,7 +696,7 @@ eCommon.errorVideo = function (message) {
 }
 
 eCommon.errorChannel = function (message) {
-	message = '<h4>Nguồn kênh tạm thời bị gián đoạn, quý khách vui lòng chọn kênh khác hoặc đợi trong giây lát</h4><h4>The channel temporary error, kindly change other channel or wait a moment</h4><br/><button class="btn btn-default" id="btn-retry" onKeyDown="eTVPlayer.onErrorKeyDown(event)">Thử lại/ Retry<span style="color: red; padding-left: 10px">30</span></button>';
+	message = '<h4>Nguồn kênh tạm thời bị gián đoạn, quý khách vui lòng chọn kênh khác hoặc đợi trong giây lát</h4><h4>The channel temporary error, kindly change other channel or wait a moment</h4><br/><button class="btn btn-default" id="btn-retry" onKeyDown="eTVPlayer.onErrorKeyDown(event)">Thử lại/ Retry<span style="color: red; padding-left: 10px"></span></button>';
 	$.blockUI({
 		message: message,
 		css: {
@@ -727,23 +717,6 @@ eCommon.errorChannel = function (message) {
 			opacity: 1,
 			cursor: 'wait'
 		},
-		onBlock: function () {
-			clearTimeout(eCommon.countDownTimeout);
-			eCommon.countDownTimeout = setTimeout(function () { $('#btn-retry').focus(); }, 500);
-			eCommon.countDownInterval = setInterval(function () {
-				var countDown = Number($('#btn-retry span').text());
-				countDown--;
-				if (countDown > 0) {
-					$('#btn-retry span').text(countDown);
-				} else {
-					clearTimeout(eCommon.countDownTimeout);
-					clearInterval(eCommon.countDownInterval);
-					eCommon.unblockUI();
-					eTVPlayer.stop();
-					eTVPlayer.AVPlayer(eTVPlayer.url);
-				}
-			}, 1000);
-		}
 	});
 }
 
@@ -880,12 +853,28 @@ eCommon.random = function () {
 }
 eCommon.getPrettyTime = function (date) {
 	var _ = this;
+	var vnRoom = 'PH&Ograve;NG ';
+	var enRoom = 'ROOM ';
+	var vnCity = 'TH&Agrave;NH PHỐ NAM ĐỊNH';
+	var enCity = 'NAM DINH CITY';
+	var vnToday = 'H&Ocirc;M NAY';
+	var enToday = 'TODAY';
+	var vnTomorrow = 'NG&Agrave;Y MAI';
+	var enTomorrow = 'TOMORROW';
 	if (eCommon.languageCode === eCommon.CODE_EN) {
+		$('.nav-lang-room').html(enRoom);
+		$('.nav-lang-city').html(enCity);
+		$('.nav-lang-today').html(enToday);
+		$('.nav-lang-tomorrow').html(enTomorrow);
 		var hour = date.getHours();
 		var period = date.getHours() >= 12 ? 'PM' : 'AM';
 		//_.timeNavbarHome = _.timeNavbarHome + _.showTime(hour) + ' : ' + _.showTime(date.getMinutes()) + period;
 		return (_.showTime(hour) + ':' + _.showTime(date.getMinutes()));
 	} else if (eCommon.languageCode === eCommon.CODE_VN) {
+		$('.nav-lang-room').html(vnRoom);
+		$('.nav-lang-city').html(vnCity);
+		$('.nav-lang-today').html(vnToday);
+		$('.nav-lang-tomorrow').html(vnTomorrow);
 		var hour = date.getHours();
 		var period = date.getHours() >= 12 ? 'CH' : 'SA';
 		//_.timeNavbarHome = _.timeNavbarHome + _.showTime(hour) + ' : ' + _.showTime(date.getMinutes()) + period;
@@ -949,31 +938,6 @@ eCommon.getPeriodTime = function (date) {
 		return (' ' + period);
 	}
 }
-eCommon.setLang = function () {
-	var _ = this;
-	var vnRoom = 'PH&Ograve;NG';
-	var enRoom = 'ROOM';
-	var vnCity = 'TH&Agrave;NH PHỐ NAM ĐỊNH';
-	var enCity = 'NAM DINH CITY';
-	var vnToday = 'H&Ocirc;M NAY';
-	var enToday = 'TODAY';
-	var vnTomorrow = 'NG&Agrave;Y MAI';
-	var enTomorrow = 'TOMORROW';
-	if (eCommon.languageCode === eCommon.CODE_EN) {
-		$('.nav-lang-room').html(enRoom);
-		$('.nav-lang-city').html(enCity);
-		$('.nav-lang-today').html(enToday);
-		$('.nav-lang-tomorrow').html(enTomorrow);
-		//$('.nav-time').html(eCommon.getPrettyTime(date));
-		//return enRoom
-	} else if (eCommon.languageCode === eCommon.CODE_VN) {
-		//return vnRoom;
-		$('.nav-lang-room').html(vnRoom);
-		$('.nav-lang-city').html(vnCity);
-		$('.nav-lang-today').html(vnToday);
-		$('.nav-lang-tomorrow').html(vnTomorrow);
-	}
-}
 eCommon.getPrettyDate = function (date) {
 	var _ = this;
 	var vnDay = ['Ch&#7911; nh&#7853;t', 'Th&#7913; 2', 'Th&#7913; 3', 'Th&#7913; 4', 'Th&#7913; 5', 'Th&#7913; 6', 'Th&#7913; 7'];
@@ -1015,6 +979,7 @@ eCommon.runTime = function () {
 		$('.nav-time').html(eCommon.getPrettyTime(date));
 		$('.main-time').html(eCommon.timeNavbarHome);
 	}, 1000);
+	timeoutWeather = setTimeout(function () { eWelcome.getWeather(); eStandby.getWeather() }, 300000);
 }
 eCommon.runTimeSoJo = function () {
 	var currentdate = new Date();
@@ -1080,7 +1045,7 @@ eCommon.logServer = function (data) {
 eCommon.logs = function (data) {
 	$('.logs').html(data);
 	$.ajax({
-		url: 'http://' + location.hostname + ':3122/logs',
+		url: 'http://' + location.hostname + ':3120/logs',
 		data: { message: data, key: eCommon.KEY_SERIAL_NUMBER },
 		success: function (response) {
 		},

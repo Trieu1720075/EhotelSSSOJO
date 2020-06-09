@@ -326,7 +326,6 @@ eTVPlayer.checkText = function(){
 }
 eTVPlayer.back = function() {
 	var _ = this;
-	eStandby.init();
 	_.hide();
 	_.stop();
 	_.avPlayer = null;

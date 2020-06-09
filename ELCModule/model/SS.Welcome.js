@@ -35,21 +35,22 @@ eWelcome.show = function () {
 	$(eCommon.navbarName).text(this.name);
 	eCommon.hideFooter();
 	eCommon.hideHeader();
-	eCommon.showBackground();
+	//eTVPlayer.play("abc.com")
+	// eCommon.setBackground();
+	//	eMusicIntro.play();
 	$(this.element).show();
-	//eTVPlayer.play('http://172.16.9.205/Music/audio_1526711059265.mp3')
-	//eCommon.launchApp('com.samsung.tv.cobalt-yt', null, 500);
 	//this.showSlideShow();
-	timeoutStandby = setTimeout(function () { eWelcome.hide(); eStandby.init() }, 300000);
+	welcometimeout = setTimeout(function(){eWelcome.hide(); eStandby.init()},300000);
 }
 eWelcome.hide = function () {
-	clearTimeout(timeoutStandby);
 	eMusicIntro.stop(); // stop music welcome
 	eCommon.hideFooter();
 	eCommon.hideHeader();
+	clearTimeout(welcometimeout);
 	// eCommon.setBackground();
-	eMusicIntro.play();
+	//	eMusicIntro.play();
 	$(this.element).hide();
+
 	//this.hideSlideShow();
 }
 eWelcome.getData = function () {
@@ -70,123 +71,15 @@ eWelcome.getData = function () {
 					var url = $(this).find("url").text();
 					eCommon.background = API.getAPI().LOCATION_IMAGE.concat(url);
 					eCommon.setBackground();
-				} else if ($(this).attr("key") === "WelcomeGuest") {
-					var nameRoom = $(this).find("id").text();
-					var nameWelcome = $(this).find("fullname").text();
-					var currentdate = new Date();
-					var currentTime = eCommon.getPrettyTime(currentdate);
-					var periodTime = eCommon.getPeriodTime(currentdate);
-					var currentTimeStandby = eCommon.getPrettyDateStandby(currentdate);
-					//var currentDay = eCommon.getDateString(); 
-					var currentDay = eCommon.getPrettyDate(currentdate);
-					eCommon.CUSTOMER = $(this).find("fullname").text();
-					eCommon.ROOM = nameRoom;
-					_.name = nameRoom;
-					$(eCommon.navbarName).html(nameRoom);
-					$('.ehotel-name-welcome').html(nameWelcome);
-					$('.name-room').html(nameRoom);
-					$(eCommon.timeforNavbarHome).html(currentTime);
-					$(eCommon.dateNavbarHome).html(currentDay);
-					$(eCommon.timeperiodNavbarHome).html(periodTime);
-					$(eCommon.dateNavbarHomeStandby).html(currentTimeStandby);
 				} else if ($(this).attr("key") === "current_language") {
 					var currentLang = $(this).find("id").text();
-					eCommon.languageCode = currentLang;
-					eCommon.setLang();
-				} else if ($(this).attr("key") === "welcome") {
-					var text = $(this).find("url").text();
-					$('.text-welcome').html(text);
-				} else if ($(this).attr("key") === "lang") {
-					var idFlag = $(this).find("id").text();
-					var nameFlag = $(this).find("name").text();
-					var iconFlag = API.getAPI().LOCATION_IMAGE.concat($(this).find("icon").text());
-					var code = $(this).find("code").text();
-					var flag = '<div class="flag"><a href="#" data-code="' + code.toLowerCase() + '" tabindex="' + idFlag + '" onclick="eWelcome.clickItem()"  onKeyUp="eWelcome.keyUp()" onKeyDown="eWelcome.keyDown()">'
-						+ '<img style="width:35px; height:35px" src="' + iconFlag + '" class="img-circle"/>'
-						+ '<h6>' + nameFlag + '</h6>'
-						+ '</a></div>';
-					$('.row-flag').append(flag);
-					indexIcon += 1;
-					_.languages.push(idFlag);
-				} else if ($(this).attr("key") === "piciconout") {
-					var url = API.getAPI().LOCATION_IMAGE.concat($(this).find("url").text());
-					$('.img-logo').attr('src', url);
-				} else if ($(this).attr("key") === "piciconin") {
-					var url = API.getAPI().LOCATION_IMAGE.concat($(this).find("url").text());
-					$('.logo__nav').attr('src', url);
-				} else if ($(this).attr("key") === "welcome_01") {
-					var text = $(this).find("url").text();
-					$('.text-welcome_01').html(eCommon.htmlToText(text));
-				} else if ($(this).attr("key") === "welcome_02") {
-					var text = $(this).find("url").text();
-					$('.text-welcome_02').html(eCommon.htmlToText(text));
-				} else if ($(this).attr("key") === "welcomvideo") {
-					var text = $(this).find("url").text();
-					if (text.trim() != "") {
-						eVideoIntro.data = text.split('@');
-					}
-				} else if ($(this).attr("key") === "welcommusic") {
-					var text = $(this).find("url").text();
-					if (text.trim() != "") {
-						eMusicIntro.data = text.split('@');
-					}
-				}/* else if ($(this).attr("key") === "birthday") {
-						var isbirthday = $(this).find("isbirthday").text();
-						var url = $(this).find("url").text();
-						var guest = $(this).find("guest").text();
-						var  duration = $(this).find("duration").text();
-						if (isbirthday == 1){
-							eBirthDay.isBirthDay = true;
-							eBirthDay.data = {
-								name: guest,
-								url: url,
-								duration: eCommon.stringToTime(duration)
-							}
-						} else {
-							eBirthDay.isBirthDay = false;
-						}
-					}*/
+					eCommon.languageCode = currentLang;	
+				}
 			});
-			//eVideoIntro.data = ['http://172.16.9.70:8383/Music/a.mp4']
-			_.languageCount = _.languages.length;
-			eTVPlayer.getAllChannel();
-			_.getWeather();
-			setInterval(function () {
-				eWelcome.receivePMS();
-			}, 60000);
-			setInterval(function () {
-				eCommon.runTimeSoJo();
-			}, 1000);
-			if (eVideoIntro.data.length > 0) {
-				eVideoIntro.play();
-				return;
-			} else {
-				_.show();
-				_.focus();
-			}
-
-		},
-		error: function (error) { }
-	});
-}
-
-eWelcome.backWelcome = function () {
-	var _ = this;
-	$.ajax({
-		url: API.getAPI().CMD_46,
-		cache: false,
-		type: 'GET',
-		async: false,
-		success: function (response) {
-			$('#ehotel-welcome').html(eLayout.welcomeHtml());
-			_.hanler = _.element.find('div.row-flag');
-			_.xmlDoc = $($.parseXML(response.replace("<?xml version='1.0' encoding='UTF-8'?>", "")));
-			var length = _.xmlDoc.find('item').length;
-			var indexIcon = 0;
 			_.xmlDoc.find('item').each(function () {
 				if ($(this).attr("key") === "WelcomeGuest") {
 					var nameRoom = $(this).find("id").text();
-					var nameWelcome = $(this).find("fullname").text();
+					var nameWelcome = $(this).find("name").text();
 					var currentdate = new Date();
 					var currentTime = eCommon.getPrettyTime(currentdate);
 					var periodTime = eCommon.getPeriodTime(currentdate);
@@ -203,10 +96,6 @@ eWelcome.backWelcome = function () {
 					$(eCommon.dateNavbarHome).html(currentDay);
 					$(eCommon.timeperiodNavbarHome).html(periodTime);
 					$(eCommon.dateNavbarHomeStandby).html(currentTimeStandby);
-				} else if ($(this).attr("key") === "current_language") {
-					var currentLang = $(this).find("id").text();
-					eCommon.languageCode = currentLang;
-					eCommon.setLang();
 				} else if ($(this).attr("key") === "welcome") {
 					var text = $(this).find("url").text();
 					$('.text-welcome').html(text);
@@ -222,10 +111,6 @@ eWelcome.backWelcome = function () {
 					$('.row-flag').append(flag);
 					indexIcon += 1;
 					_.languages.push(idFlag);
-				} else if ($(this).attr("key") === "picbackground") {
-					var url = $(this).find("url").text();
-					eCommon.background = API.getAPI().LOCATION_IMAGE.concat(url);
-					eCommon.setBackground();
 				} else if ($(this).attr("key") === "piciconout") {
 					var url = API.getAPI().LOCATION_IMAGE.concat($(this).find("url").text());
 					$('.img-logo').attr('src', url);
@@ -269,6 +154,7 @@ eWelcome.backWelcome = function () {
 			_.languageCount = _.languages.length;
 			eTVPlayer.getAllChannel();
 			_.getWeather();
+			//eCommon.setLang();
 			setInterval(function () {
 				eWelcome.receivePMS();
 			}, 60000);
@@ -282,7 +168,7 @@ eWelcome.backWelcome = function () {
 				_.show();
 				_.focus();
 			}
-
+			
 		},
 		error: function (error) { }
 	});
@@ -303,11 +189,33 @@ eWelcome.receivePMS = function () {
 				if ($(this).attr("key") === "WelcomeGuest") {
 					var nameRoom = $(this).find("id").text();
 					var nameWelcome = $(this).find("name").text();
+					var currentdate = new Date();
+					var currentTime = eCommon.getPrettyTime(currentdate);
+					var periodTime = eCommon.getPeriodTime(currentdate);
+					var currentTimeStandby = eCommon.getPrettyDateStandby(currentdate);
+					//var currentDay = eCommon.getDateString(); 
+					var currentDay = eCommon.getPrettyDate(currentdate);
 					eCommon.CUSTOMER = $(this).find("fullname").text();
 					eCommon.ROOM = nameRoom;
 					_.name = nameRoom;
 					$(eCommon.navbarName).html(nameRoom);
 					$('.ehotel-name-welcome').html(nameWelcome);
+					$('.name-room').html(nameRoom);
+					$(eCommon.timeforNavbarHome).html(currentTime);
+					$(eCommon.dateNavbarHome).html(currentDay);
+					$(eCommon.timeperiodNavbarHome).html(periodTime);
+					$(eCommon.dateNavbarHomeStandby).html(currentTimeStandby);
+					_.getPromotion();
+				} else if ($(this).attr("key") === "current_language") {
+					var currentLang = $(this).find("id").text();
+					eCommon.languageCode = currentLang;
+					//eCommon.setLang();
+				}else if ($(this).attr("key") === "welcome_01") {
+					var text = $(this).find("url").text();
+					$('.text-welcome_01').html(eCommon.htmlToText(text));
+				} else if ($(this).attr("key") === "welcome_02") {
+					var text = $(this).find("url").text();
+					$('.text-welcome_02').html(eCommon.htmlToText(text));
 				}
 			});
 		},
@@ -355,7 +263,7 @@ eWelcome.initPromotion = function () {
 	});
 	_.slidePromotion.responsiveSlides({
 		speed: 0000,
-		timeout: 25000,
+		timeout: 84082,
 		page: false
 	});
 }
@@ -577,17 +485,15 @@ eWelcome.getWeather = function () {
 		async: true,
 		success: function (response) {
 			var weather = xmlAPI.loadXMLString(response);
-			var length = weather.find('item').length;
 			weather.find('item').each(function () {
-				var tmpmin = Math.round($(this).find('tempmin').text());
-				var tmpmax = Math.round($(this).find('tempmax').text());
-				var image = $(this).find('urlImage').text();
-				$('.temp-max').html(tmpmax + '&deg;C');
-				$('.temp-min').html(tmpmin + '&deg;C');
-				$('.img-weather').attr('src', API.getAPI().LOCATION_IMAGE + image);
-				//$('.media-object').attr('src', API.getAPI().LOCATION_IMAGE + image);
-				//$('.pull-right').find('.media-object').attr('src', API.getAPI().LOCATION_IMAGE + image);
-
+				var day = $(this).find('day').text();
+				if (day == eCommon.getDay())
+				{
+					var temp = Math.round($(this).find('temp').text());
+					var image = $(this).find('blue').text();
+					$('.temp').html(temp + '&deg;C');
+					$('.img-weather').attr('src', API.getAPI().LOCATION_IMAGE + image);
+				}
 			});
 		},
 		error: function (jqXHR, exception) {

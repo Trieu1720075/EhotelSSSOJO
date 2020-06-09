@@ -25,7 +25,7 @@
   }
 
 .rslides img {
-  display: block;
+  display: none;
   height: auto;
   float: left;
   width: 100%;

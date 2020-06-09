@@ -790,10 +790,10 @@ li.list-group-item p {
 }*/
 
 #slide-promotion-footer h6{
-  margin: 5px 0 0 0px;
+  margin: 10px 0 0 10px;
   color: #2AD1C8;
   font-family: sojofont;
-  font-size: 35px;
+  font-size: 25px;
 }
 
 #slide-promotion-footer li.slide_on h6.promotion-slow{
@@ -1134,8 +1134,8 @@ ul.horizontal-slide li[class*="item"]:first-child {
 .navbar-weathericon {
   top: 958px;
   left: 544px;
-  width: 45px;
-  height: 36px;
+  width: 35px;
+  height: 30px;
   background: transparent 0% 0% no-repeat padding-box;
   opacity: 1;
 }
